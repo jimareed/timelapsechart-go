@@ -3,7 +3,7 @@
 Go library to generate a time-lapse bar chart in SVG format.
 
 <p  align="center">
-    <img src="./example/output.svg" alt="timelapsechart-go output"/>
+    <img src="./examples/example1/output.svg" alt="timelapsechart-go output"/>
 </p>
 
 ## usage
