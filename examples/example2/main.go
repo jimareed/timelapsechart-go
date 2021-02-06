@@ -23,7 +23,7 @@ func main() {
 		log.Fatalln("Couldn't open the csv file", err)
 	}
 
-	chart := timelapsechart.New("Gantt Chart", timelapsechart.Config{})
+	chart := timelapsechart.New("Gantt Chart", "gantt", timelapsechart.Config{})
 	chart.AddData(&data)
 
 	buffer := bytes.NewBuffer([]byte{})

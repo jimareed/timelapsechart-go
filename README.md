@@ -33,7 +33,7 @@ func main() {
         log.Fatalln("Couldn't open the csv file", err)
     }
 
-    chart := timelapsechart.New("Covid Cases", timelapsechart.Config{})
+    chart := timelapsechart.New("Covid Cases", "bar", timelapsechart.Config{})
     chart.AddData(&data)
 
     buffer := bytes.NewBuffer([]byte{})

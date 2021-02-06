@@ -10,6 +10,7 @@ type Chart struct {
 	Config Config `json:"config"`
 	Title  string `json:"title"`
 	Data   *Data  `json:"data"`
+	Type   string `json:"type"`
 }
 
 // Config
@@ -22,10 +23,11 @@ type Config struct {
 	Palette   []string `json:"palette"`
 }
 
-func New(title string, config Config) *Chart {
+func New(title string, chartType string, config Config) *Chart {
 	chart := Chart{}
 
 	chart.Title = title
+	chart.Type = chartType
 
 	if config.Width == 0 {
 		config.Width = 800
@@ -102,6 +104,31 @@ func (chart *Chart) Render(buffer *bytes.Buffer) error {
 		return err
 	}
 
+	if chart.Type == "gantt" {
+		err = chart.renderGanttChart(buffer)
+	} else {
+		err = chart.renderBarChart(buffer)
+	}
+	if err != nil {
+		return err
+	}
+
+	_, err = fmt.Fprintf(buffer, footer)
+	if err != nil {
+		return err
+	}
+
+	return err
+}
+
+func (chart *Chart) RectWidth(value float64) float64 {
+	maxWidth := float64(chart.Config.Width - (chart.Config.ChartX + 100))
+
+	return maxWidth * (value / chart.Data.GetMaxValue())
+}
+
+func (chart *Chart) renderBarChart(buffer *bytes.Buffer) error {
+
 	for i, category := range chart.Data.Categories {
 		fmt.Fprintf(buffer, `	<text x="%d" y="%d" fill="black" text-anchor="end" font-size="%dpx">%s</text>`,
 			chart.Config.ChartX-10, chart.Config.ChartY+25+i*40, chart.Config.LabelSize, category)
@@ -123,16 +150,31 @@ func (chart *Chart) Render(buffer *bytes.Buffer) error {
 		fmt.Fprintf(buffer, "\t</rect>\n")
 	}
 
-	_, err = fmt.Fprintf(buffer, footer)
-	if err != nil {
-		return err
-	}
-
-	return err
+	return nil
 }
 
-func (chart *Chart) RectWidth(value float64) float64 {
-	maxWidth := float64(chart.Config.Width - (chart.Config.ChartX + 100))
+func (chart *Chart) renderGanttChart(buffer *bytes.Buffer) error {
 
-	return maxWidth * (value / chart.Data.GetMaxValue())
+	for i, category := range chart.Data.Categories {
+		fmt.Fprintf(buffer, `	<text x="%d" y="%d" fill="black" text-anchor="end" font-size="%dpx">%s</text>`,
+			chart.Config.ChartX-10, chart.Config.ChartY+25+i*40, chart.Config.LabelSize, category)
+		fmt.Fprintf(buffer, "\n")
+		fmt.Fprintf(buffer, `	<rect x="%d" y="%d" fill="%s" width="1" height="40">`,
+			chart.Config.ChartX, chart.Config.ChartY+i*40, chart.GetColor(i))
+		fmt.Fprintf(buffer, "\n")
+
+		lastValue := 0.0
+		begin := ""
+		for j := 0; j < len(chart.Data.TimeRange); j++ {
+			value := chart.Data.GetValue(i, j)
+			fmt.Fprintf(buffer, `		<animate id="r%dstep%d" attributeName="width" from="%.02f" to="%.02f" %s dur="1.0s" fill="freeze" />`, i+1, j, chart.RectWidth(lastValue), chart.RectWidth(value), begin)
+			fmt.Fprintf(buffer, "\n")
+			lastValue = value
+			begin = fmt.Sprintf(`begin="r%dstep%d.end"`, i+1, j)
+		}
+
+		fmt.Fprintf(buffer, "\t</rect>\n")
+	}
+
+	return nil
 }

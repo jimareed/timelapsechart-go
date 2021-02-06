@@ -23,7 +23,7 @@ func TestNewChart(t *testing.T) {
 
 	t.Log("a chart")
 
-	chart := New("", Config{})
+	chart := New("", "", Config{})
 
 	if chart.Config.Width == 800 {
 		t.Log(" should be 800 px wide by default.", checkMark)

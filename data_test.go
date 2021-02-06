@@ -49,7 +49,7 @@ func TestDataConfig(t *testing.T) {
 
 	t.Log("a developer")
 
-	csvFile, err := os.Open("example/input.csv")
+	csvFile, err := os.Open("examples/example1/input.csv")
 	if err != nil {
 		t.Fatal(" should be able to open the input test file.", xMark, err)
 	}
