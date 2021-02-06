@@ -17,7 +17,9 @@ type Data struct {
 	CategoryColumn string   `json:"categoryColumn"`
 	TimeColumn     string   `json:"timeColumn"`
 	ValueColumn    string   `json:"valueColumn"`
+	Value2Column   string   `json:"value2Column"`
 	seriesData     *dataframe.DataFrame
+	series2Data    *dataframe.DataFrame
 	inputData      *dataframe.DataFrame
 }
 
@@ -44,6 +46,13 @@ func (data *Data) getValueColNum() (int, error) {
 	return data.inputData.NameToColumn(data.ValueColumn)
 }
 
+func (data *Data) getValue2ColNum() (int, error) {
+	if data.Value2Column == "" {
+		return -1, nil
+	}
+	return data.inputData.NameToColumn(data.Value2Column)
+}
+
 func (data *Data) columnsDefined() bool {
 	return data.CategoryColumn != "" && data.TimeColumn != "" && data.ValueColumn != ""
 }
@@ -58,6 +67,9 @@ func (data *Data) ReadCSV(r io.ReadSeeker, cols []string) error {
 	}
 	if len(cols) > 2 {
 		data.ValueColumn = cols[2]
+	}
+	if len(cols) > 3 {
+		data.Value2Column = cols[3]
 	}
 
 	err := errors.New("")
@@ -89,6 +101,10 @@ func (data *Data) ReadCSV(r io.ReadSeeker, cols []string) error {
 	if err != nil {
 		return err
 	}
+	value2ColNum, err := data.getValue2ColNum()
+	if err != nil {
+		return err
+	}
 
 	if categoryColNum >= len(data.inputData.Series) {
 		return errors.New("invalid category column")
@@ -99,10 +115,18 @@ func (data *Data) ReadCSV(r io.ReadSeeker, cols []string) error {
 	if valueColNum >= len(data.inputData.Series) {
 		return errors.New("invalid value column")
 	}
+	if value2ColNum >= len(data.inputData.Series) {
+		return errors.New("invalid value column")
+	}
 
 	categorySeries := data.inputData.Series[categoryColNum]
 	timeSeries := data.inputData.Series[timeColNum]
 	valuesSeries := data.inputData.Series[valueColNum]
+	values2Series := data.inputData.Series[valueColNum]
+
+	if value2ColNum != -1 {
+		values2Series = data.inputData.Series[value2ColNum]
+	}
 
 	for i := 0; i < categorySeries.NRows(); i++ {
 		data.AddCategory(categorySeries.Value(i).(string))
@@ -121,12 +145,21 @@ func (data *Data) ReadCSV(r io.ReadSeeker, cols []string) error {
 	seriesInit.Size = len(data.TimeRange)
 	seriesInit.Capacity = len(data.TimeRange)
 
+	series2Init := dataframe.SeriesInit{}
+	series2Init.Size = len(data.TimeRange)
+	series2Init.Capacity = len(data.TimeRange)
+
 	s1 := dataframe.NewSeriesFloat64(data.Categories[0], &seriesInit)
 	data.seriesData = dataframe.NewDataFrame(s1)
+
+	s2 := dataframe.NewSeriesFloat64(data.Categories[0], &series2Init)
+	data.series2Data = dataframe.NewDataFrame(s2)
 
 	for i := 1; i < len(data.Categories); i++ {
 		s := dataframe.NewSeriesFloat64(data.Categories[i], &seriesInit)
 		data.seriesData.AddSeries(s, nil)
+		ss := dataframe.NewSeriesFloat64(data.Categories[i], &series2Init)
+		data.series2Data.AddSeries(ss, nil)
 	}
 
 	for i := 0; i < valuesSeries.NRows(); i++ {
@@ -135,6 +168,9 @@ func (data *Data) ReadCSV(r io.ReadSeeker, cols []string) error {
 			timeRangeIndex := data.getTimeRangeIndex(timeSeries.Value(i).(string))
 			if timeRangeIndex >= 0 {
 				data.seriesData.Series[catIndex].Update(timeRangeIndex, valuesSeries.Value(i))
+				if value2ColNum != -1 {
+					data.series2Data.Series[catIndex].Update(timeRangeIndex, values2Series.Value(i))
+				}
 			}
 		}
 	}
@@ -195,6 +231,11 @@ func (data *Data) GetValue(category int, index int) float64 {
 	}
 
 	return data.seriesData.Series[category].Value(index).(float64)
+}
+
+func (data *Data) GetValue2(category int, index int) float64 {
+
+	return data.series2Data.Series[category].Value(index).(float64)
 }
 
 func (data *Data) addTimeRangeValue(newTime string) error {
