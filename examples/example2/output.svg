@@ -3,44 +3,44 @@
  
 <text x="400" y="35" fill="black" text-anchor="middle" font-size="20px">Gantt Chart</text>
 	<text x="190" y="75" fill="black" text-anchor="end" font-size="20px">Task 1</text>
-	<rect x="200" y="50" fill="#f00" width="1" height="40">
-		<animate id="r1step0" attributeName="width" from="0.00" to="125.00"  dur="1.0s" fill="freeze" />
-		<animate id="r1step1" attributeName="width" from="125.00" to="133.33" begin="r1step0.end" dur="1.0s" fill="freeze" />
-		<animate id="r1step2" attributeName="width" from="133.33" to="141.67" begin="r1step1.end" dur="1.0s" fill="freeze" />
-		<animate id="r1step3" attributeName="width" from="141.67" to="150.00" begin="r1step2.end" dur="1.0s" fill="freeze" />
-		<animate id="r1step4" attributeName="width" from="150.00" to="158.33" begin="r1step3.end" dur="1.0s" fill="freeze" />
+	<rect x="200.00" y="50" fill="#f00" width="1" height="40">
+		<animate id="r1step0" attributeName="width" from="0.00" to="36.59"  dur="1.0s" fill="freeze" />
+		<animate id="r1step1" attributeName="width" from="36.59" to="39.02" begin="r1step0.end" dur="1.0s" fill="freeze" />
+		<animate id="r1step2" attributeName="width" from="39.02" to="41.46" begin="r1step1.end" dur="1.0s" fill="freeze" />
+		<animate id="r1step3" attributeName="width" from="41.46" to="43.90" begin="r1step2.end" dur="1.0s" fill="freeze" />
+		<animate id="r1step4" attributeName="width" from="43.90" to="46.34" begin="r1step3.end" dur="1.0s" fill="freeze" />
 	</rect>
 	<text x="190" y="115" fill="black" text-anchor="end" font-size="20px">Task 2</text>
-	<rect x="200" y="90" fill="#f70" width="1" height="40">
-		<animate id="r2step0" attributeName="width" from="0.00" to="166.67"  dur="1.0s" fill="freeze" />
-		<animate id="r2step1" attributeName="width" from="166.67" to="166.67" begin="r2step0.end" dur="1.0s" fill="freeze" />
-		<animate id="r2step2" attributeName="width" from="166.67" to="166.67" begin="r2step1.end" dur="1.0s" fill="freeze" />
-		<animate id="r2step3" attributeName="width" from="166.67" to="158.33" begin="r2step2.end" dur="1.0s" fill="freeze" />
-		<animate id="r2step4" attributeName="width" from="158.33" to="166.67" begin="r2step3.end" dur="1.0s" fill="freeze" />
+	<rect x="254.88" y="90" fill="#f70" width="1" height="40">
+		<animate id="r2step0" attributeName="width" from="0.00" to="48.78"  dur="1.0s" fill="freeze" />
+		<animate id="r2step1" attributeName="width" from="48.78" to="48.78" begin="r2step0.end" dur="1.0s" fill="freeze" />
+		<animate id="r2step2" attributeName="width" from="48.78" to="48.78" begin="r2step1.end" dur="1.0s" fill="freeze" />
+		<animate id="r2step3" attributeName="width" from="48.78" to="46.34" begin="r2step2.end" dur="1.0s" fill="freeze" />
+		<animate id="r2step4" attributeName="width" from="46.34" to="48.78" begin="r2step3.end" dur="1.0s" fill="freeze" />
 	</rect>
 	<text x="190" y="155" fill="black" text-anchor="end" font-size="20px">Task 3</text>
-	<rect x="200" y="130" fill="#ec0" width="1" height="40">
-		<animate id="r3step0" attributeName="width" from="0.00" to="416.67"  dur="1.0s" fill="freeze" />
-		<animate id="r3step1" attributeName="width" from="416.67" to="416.67" begin="r3step0.end" dur="1.0s" fill="freeze" />
-		<animate id="r3step2" attributeName="width" from="416.67" to="416.67" begin="r3step1.end" dur="1.0s" fill="freeze" />
-		<animate id="r3step3" attributeName="width" from="416.67" to="458.33" begin="r3step2.end" dur="1.0s" fill="freeze" />
-		<animate id="r3step4" attributeName="width" from="458.33" to="500.00" begin="r3step3.end" dur="1.0s" fill="freeze" />
+	<rect x="315.85" y="130" fill="#ec0" width="1" height="40">
+		<animate id="r3step0" attributeName="width" from="0.00" to="121.95"  dur="1.0s" fill="freeze" />
+		<animate id="r3step1" attributeName="width" from="121.95" to="121.95" begin="r3step0.end" dur="1.0s" fill="freeze" />
+		<animate id="r3step2" attributeName="width" from="121.95" to="121.95" begin="r3step1.end" dur="1.0s" fill="freeze" />
+		<animate id="r3step3" attributeName="width" from="121.95" to="134.15" begin="r3step2.end" dur="1.0s" fill="freeze" />
+		<animate id="r3step4" attributeName="width" from="134.15" to="146.34" begin="r3step3.end" dur="1.0s" fill="freeze" />
 	</rect>
 	<text x="190" y="195" fill="black" text-anchor="end" font-size="20px">Task 4</text>
-	<rect x="200" y="170" fill="#f00" width="1" height="40">
-		<animate id="r4step0" attributeName="width" from="0.00" to="250.00"  dur="1.0s" fill="freeze" />
-		<animate id="r4step1" attributeName="width" from="250.00" to="250.00" begin="r4step0.end" dur="1.0s" fill="freeze" />
-		<animate id="r4step2" attributeName="width" from="250.00" to="250.00" begin="r4step1.end" dur="1.0s" fill="freeze" />
-		<animate id="r4step3" attributeName="width" from="250.00" to="250.00" begin="r4step2.end" dur="1.0s" fill="freeze" />
-		<animate id="r4step4" attributeName="width" from="250.00" to="250.00" begin="r4step3.end" dur="1.0s" fill="freeze" />
+	<rect x="541.46" y="170" fill="#f00" width="1" height="40">
+		<animate id="r4step0" attributeName="width" from="0.00" to="73.17"  dur="1.0s" fill="freeze" />
+		<animate id="r4step1" attributeName="width" from="73.17" to="73.17" begin="r4step0.end" dur="1.0s" fill="freeze" />
+		<animate id="r4step2" attributeName="width" from="73.17" to="73.17" begin="r4step1.end" dur="1.0s" fill="freeze" />
+		<animate id="r4step3" attributeName="width" from="73.17" to="73.17" begin="r4step2.end" dur="1.0s" fill="freeze" />
+		<animate id="r4step4" attributeName="width" from="73.17" to="73.17" begin="r4step3.end" dur="1.0s" fill="freeze" />
 	</rect>
 	<text x="190" y="235" fill="black" text-anchor="end" font-size="20px">Task 5</text>
-	<rect x="200" y="210" fill="#f70" width="1" height="40">
-		<animate id="r5step0" attributeName="width" from="0.00" to="166.67"  dur="1.0s" fill="freeze" />
-		<animate id="r5step1" attributeName="width" from="166.67" to="166.67" begin="r5step0.end" dur="1.0s" fill="freeze" />
-		<animate id="r5step2" attributeName="width" from="166.67" to="166.67" begin="r5step1.end" dur="1.0s" fill="freeze" />
-		<animate id="r5step3" attributeName="width" from="166.67" to="208.33" begin="r5step2.end" dur="1.0s" fill="freeze" />
-		<animate id="r5step4" attributeName="width" from="208.33" to="208.33" begin="r5step3.end" dur="1.0s" fill="freeze" />
+	<rect x="639.02" y="210" fill="#f70" width="1" height="40">
+		<animate id="r5step0" attributeName="width" from="0.00" to="48.78"  dur="1.0s" fill="freeze" />
+		<animate id="r5step1" attributeName="width" from="48.78" to="48.78" begin="r5step0.end" dur="1.0s" fill="freeze" />
+		<animate id="r5step2" attributeName="width" from="48.78" to="48.78" begin="r5step1.end" dur="1.0s" fill="freeze" />
+		<animate id="r5step3" attributeName="width" from="48.78" to="60.98" begin="r5step2.end" dur="1.0s" fill="freeze" />
+		<animate id="r5step4" attributeName="width" from="60.98" to="60.98" begin="r5step3.end" dur="1.0s" fill="freeze" />
 	</rect>
 
  </g>

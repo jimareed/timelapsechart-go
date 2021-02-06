@@ -18,7 +18,7 @@ func main() {
 	defer csv.Close()
 
 	data := timelapsechart.Data{}
-	err = data.ReadCSV(csv, []string{"task", "date", "duration"})
+	err = data.ReadCSV(csv, []string{"task", "date", "duration", "start"})
 	if err != nil {
 		log.Fatalln("Couldn't open the csv file", err)
 	}
