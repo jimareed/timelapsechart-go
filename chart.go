@@ -7,10 +7,11 @@ import (
 
 // Chart
 type Chart struct {
-	Config Config `json:"config"`
-	Title  string `json:"title"`
-	Data   *Data  `json:"data"`
-	Type   string `json:"type"`
+	Config Config   `json:"config"`
+	Title  string   `json:"title"`
+	Data   *Data    `json:"data"`
+	Type   string   `json:"type"`
+	Labels []string `json:"labels"`
 }
 
 // Config
@@ -88,7 +89,7 @@ func (chart *Chart) Render(buffer *bytes.Buffer) error {
  <g>
 `
 	body := ` 
-<text x="400" y="35" fill="black" text-anchor="middle" font-size="20px">%s</text>
+<text x="50%%" y="35" fill="black" dominant-baseline="middle" text-anchor="middle" font-size="20px">%s</text>
 `
 	footer := `
  </g>
@@ -127,4 +128,11 @@ func (chart *Chart) RectWidth(value float64) float64 {
 	maxWidth := float64(chart.Config.Width - (chart.Config.ChartX + 100))
 
 	return maxWidth * (value / chart.Data.GetMaxValue())
+}
+
+func (chart *Chart) AddLabels(labels []string) {
+
+	for _, label := range labels {
+		chart.Labels = append(chart.Labels, label)
+	}
 }

@@ -25,6 +25,7 @@ func main() {
 
 	chart := timelapsechart.New("Gantt Chart", "gantt", timelapsechart.Config{})
 	chart.AddData(&data)
+	chart.AddLabels([]string{"Q1", "Q2", "Q3", "Q4"})
 
 	buffer := bytes.NewBuffer([]byte{})
 	chart.Render(buffer)

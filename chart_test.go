@@ -31,3 +31,18 @@ func TestNewChart(t *testing.T) {
 		t.Fatal(" should be 800 px wide by default.", xMark)
 	}
 }
+
+func TestAddLabel(t *testing.T) {
+
+	t.Log("a developer")
+
+	chart := New("", "", Config{})
+
+	chart.AddLabels([]string{"Label 1", "Label 2", "Label 3"})
+
+	if len(chart.Labels) == 3 {
+		t.Log(" should be able to add a label to a chart.", checkMark)
+	} else {
+		t.Fatal(" should be able to add a label to a chart.", xMark)
+	}
+}

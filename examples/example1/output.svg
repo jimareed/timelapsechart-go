@@ -1,7 +1,7 @@
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="800" height="600">
  <g>
  
-<text x="400" y="35" fill="black" text-anchor="middle" font-size="20px">Covid Cases</text>
+<text x="50%" y="35" fill="black" dominant-baseline="middle" text-anchor="middle" font-size="20px">Covid Cases</text>
 	<text x="190" y="75" fill="black" text-anchor="end" font-size="20px">United States</text>
 	<rect x="200" y="50" fill="#f00" width="1" height="40">
 		<animate id="r1step0" attributeName="width" from="0.00" to="0.00"  dur="1.0s" fill="freeze" />

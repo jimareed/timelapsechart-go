@@ -28,12 +28,25 @@ func (ganttChart *GanttChart) getMaxValue(chart *Chart) float64 {
 
 func (ganttChart *GanttChart) render(chart *Chart, buffer *bytes.Buffer) error {
 
+	chartY := chart.Config.ChartY
+
 	ganttChart.maxValue = ganttChart.getMaxValue(chart)
+
+	if len(chart.Labels) > 0 {
+		labelInterval := ganttChart.maxValue / float64(len(chart.Labels))
+		for i, label := range chart.Labels {
+
+			fmt.Fprintf(buffer, `	<text x="%.02f" y="%d" fill="black" dominant-baseline="middle" text-anchor="end" font-size="%dpx">%s</text>`,
+				float64(chart.Config.ChartX)+ganttChart.RectWidth(chart, labelInterval*float64(i+1)-labelInterval/2.0), chartY+25, chart.Config.LabelSize, label)
+			fmt.Fprintf(buffer, "\n")
+		}
+		chartY = chartY + 40
+	}
 
 	for i, category := range chart.Data.Categories {
 
 		fmt.Fprintf(buffer, `	<text x="%d" y="%d" fill="black" text-anchor="end" font-size="%dpx">%s</text>`,
-			chart.Config.ChartX-10, chart.Config.ChartY+25+i*40, chart.Config.LabelSize, category)
+			chart.Config.ChartX-10, chartY+25+i*40, chart.Config.LabelSize, category)
 		fmt.Fprintf(buffer, "\n")
 
 		lastValue := 0.0
@@ -42,7 +55,7 @@ func (ganttChart *GanttChart) render(chart *Chart, buffer *bytes.Buffer) error {
 			if j == 0 { // add rect based on first time interval
 				value2 := chart.Data.GetValue2(i, len(chart.Data.TimeRange)-1)
 				fmt.Fprintf(buffer, `	<rect x="%.02f" y="%d" fill="%s" width="1" height="40">`,
-					float64(chart.Config.ChartX)+ganttChart.RectWidth(chart, value2), chart.Config.ChartY+i*40, chart.GetColor(i))
+					float64(chart.Config.ChartX)+ganttChart.RectWidth(chart, value2), chartY+i*40, chart.GetColor(i))
 				fmt.Fprintf(buffer, "\n")
 			}
 			value := chart.Data.GetValue(i, j)
